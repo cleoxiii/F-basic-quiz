@@ -1,9 +1,17 @@
 @import "variables";
 @import "mixins";
 @import "reboot";
+@import "header";
+@import "main-content";
 
 .resume {
   width: 80%;
   height: fit-content;
-  background-color: white;
+  background-color: $white;
+  padding: 0 3%;
+}
+
+.segmentation {
+  margin: $margin-base 0;
+  border: 2px solid #ededed;
 }

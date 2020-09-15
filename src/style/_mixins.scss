@@ -1,0 +1,5 @@
+@mixin heading($font-size) {
+  margin: $margin-base 0 0 0;
+  font-size: $font-size;
+  font-weight: bold;
+}
