@@ -6,6 +6,7 @@ const userWithIdURL = rootURL + pathname;
 const header = document.getElementsByClassName("header")[0];
 const avatar = document.getElementsByClassName("avatar")[0];
 const aboutMe = document.getElementsByClassName("about-me")[0];
+const education = document.getElementsByClassName("education")[0];
 
 function renderResumeHeader(data) {
   avatar.src = `${data.avatar}`;
@@ -26,11 +27,48 @@ function renderAboutMe(data) {
   aboutMe.appendChild(description);
 }
 
+function renderEducationList(data) {
+  data.map((item) => {
+    const educationContainer = document.createElement("div");
+    educationContainer.setAttribute("class", "education-container");
+
+    const year = document.createElement("p");
+    year.setAttribute("class", "year");
+    const textOfYear = document.createTextNode(item.year);
+    year.appendChild(textOfYear);
+    educationContainer.appendChild(year);
+
+    const educationDetailPanel = document.createElement("div");
+    educationDetailPanel.setAttribute("class", "education-detail-panel");
+
+    const educationTitle = document.createElement("p");
+    educationTitle.setAttribute("class", "education-title");
+    const textOfEducationTitle = document.createTextNode(item.title);
+    educationTitle.appendChild(textOfEducationTitle);
+    educationDetailPanel.appendChild(educationTitle);
+
+    const educationDescription = document.createElement("p");
+    educationDescription.setAttribute("class", "description");
+    const textOfEducationDescription = document.createTextNode(
+      item.description
+    );
+    educationDescription.appendChild(textOfEducationDescription);
+    educationDetailPanel.appendChild(educationDescription);
+
+    educationContainer.appendChild(educationDetailPanel);
+    education.appendChild(educationContainer);
+    return null;
+  });
+}
+
 async function render() {
-  const response = await fetch(userWithIdURL);
-  const data = await response.json();
-  renderResumeHeader(data);
-  renderAboutMe(data);
+  const userInfoResponse = await fetch(userWithIdURL);
+  const userInfo = await userInfoResponse.json();
+  renderResumeHeader(userInfo);
+  renderAboutMe(userInfo);
+  const educationResponse = await fetch(`${userWithIdURL}/educations`);
+  const educationList = await educationResponse.json();
+  renderEducationList(educationList);
 }
 
 render();

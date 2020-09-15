@@ -1,3 +1,19 @@
 .title {
   color: $primary-color;
 }
+
+.education-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $margin-base;
+}
+
+.education-detail-panel {
+  width: 90%;
+  background-color: $gray-light;
+  padding: 0 10px;
+}
+
+.education-title {
+  @include heading(13px);
+}
