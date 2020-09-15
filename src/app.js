@@ -5,6 +5,7 @@ const { pathname } = window.location;
 const userWithIdURL = rootURL + pathname;
 const header = document.getElementsByClassName("header")[0];
 const avatar = document.getElementsByClassName("avatar")[0];
+const aboutMe = document.getElementsByClassName("about-me")[0];
 
 function renderResumeHeader(data) {
   avatar.src = `${data.avatar}`;
@@ -17,10 +18,19 @@ function renderResumeHeader(data) {
   header.appendChild(userInfo);
 }
 
+function renderAboutMe(data) {
+  const description = document.createElement("p");
+  description.setAttribute("class", "description");
+  const textOfDescription = document.createTextNode(data.description);
+  description.appendChild(textOfDescription);
+  aboutMe.appendChild(description);
+}
+
 async function render() {
   const response = await fetch(userWithIdURL);
   const data = await response.json();
   renderResumeHeader(data);
+  renderAboutMe(data);
 }
 
 render();
