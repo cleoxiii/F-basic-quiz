@@ -3,6 +3,8 @@ import "./style/index.scss";
 const rootURL = "http://localhost:8080";
 const { pathname } = window.location;
 const userWithIdURL = rootURL + pathname;
+
+// TODO feedback: 没必要放在全局，可以放在对应的render方法中
 const header = document.getElementsByClassName("header")[0];
 const avatar = document.getElementsByClassName("avatar")[0];
 const aboutMe = document.getElementsByClassName("about-me")[0];
@@ -28,7 +30,10 @@ function renderAboutMe(data) {
 }
 
 function renderEducationList(data) {
+  // TODO feedback: 长方法，代码可读性差
   data.map((item) => {
+    // TODO feedback: education-container用ul li更符合语义
+    // TODO feedback: 可以通过添加html的方式，每次子元素都createElement过于复杂
     const educationContainer = document.createElement("div");
     educationContainer.setAttribute("class", "education-container");
 
@@ -57,11 +62,13 @@ function renderEducationList(data) {
 
     educationContainer.appendChild(educationDetailPanel);
     education.appendChild(educationContainer);
+    // TODO feedback: 如果不需要return可以用forEach
     return null;
   });
 }
 
 async function render() {
+  // TODO feedback: 可以考虑把获取data的逻辑提取到单独的方法中
   const userInfoResponse = await fetch(userWithIdURL);
   const userInfo = await userInfoResponse.json();
   renderResumeHeader(userInfo);
